@@ -1,0 +1,19 @@
+type: choice
+is_multiple_choice: true
+options:
+- text: new_list = (x for y in other_list)
+- text: new_list = [x for x in other_list]
+- text: new_list = [x if x &gt; 0 for x in other_list]
+- text: new_list = [x for x in other_list if x == 0]
+- text: new_list = [x if x &gt; 0 else -100 for x in other_list]
+files:
+- name: main.py
+  visible: true
+  text: |+
+    #  You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/6316#comment
+status: Solved
+record: -1
+local_check: false

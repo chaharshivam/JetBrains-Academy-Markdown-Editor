@@ -1,7 +1,7 @@
-# TODO Git commit after completing this question
 import sys
 
-available_formatters = ['plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line']
+available_formatters = ['plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line',
+                        'ordered-list', 'unordered-list']
 special_commands = ['!help', '!done']
 complete_text = ""
 
@@ -69,6 +69,34 @@ def new_line():
     return "\n"
 
 
+def ordered_list():
+    while True:
+        num_rows = int(input("Number of rows: "))
+        if num_rows > 0:
+            modified_text = ""
+            for i in range(1, num_rows+1):
+                text = input("Row #{}: ".format(i))
+                modified_text += "{}. {}\n".format(i, text)
+            return modified_text
+        else:
+            print("The number of rows should be greater than zero")
+            continue
+
+
+def unordered_list():
+    while True:
+        num_rows = int(input("Number of rows: "))
+        if num_rows > 0:
+            modified_text = ""
+            for i in range(1, num_rows + 1):
+                text = input("Row #{}: ".format(i))
+                modified_text += "* {}\n".format(text)
+            return modified_text
+        else:
+            print("The number of rows should be greater than zero")
+            continue
+
+
 while True:
     user_formatter = input("Choose a formatter: ")
     if user_formatter not in available_formatters and user_formatter not in special_commands:
@@ -94,5 +122,9 @@ while True:
         complete_text += header()
     elif user_formatter == "new-line":
         complete_text += new_line()
+    elif user_formatter == "ordered-list":
+        complete_text += ordered_list()
+    elif user_formatter == "unordered-list":
+        complete_text += unordered_list()
     print(complete_text)
 

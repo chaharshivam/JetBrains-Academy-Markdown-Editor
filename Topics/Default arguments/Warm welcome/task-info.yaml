@@ -1,0 +1,14 @@
+type: code
+files:
+- name: main.py
+  visible: true
+  text: |-
+    def get_bonus(salary, percentage):
+        pass
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/8559#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Wed, 05 Oct 2022 09:56:01 UTC
+record: -1
