@@ -1,0 +1,20 @@
+type: choice
+is_multiple_choice: true
+options:
+- text: <code>\n</code>
+- text: <code>\t\b</code>
+- text: <code>\b</code>
+- text: <code>\t</code>
+- text: <code>\r</code>
+- text: <code>\r\n</code>
+files:
+- name: main.py
+  visible: true
+  text: |+
+    #  You can experiment here, it won’t be checked
+
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/15245#comment
+status: Solved
+record: -1
+local_check: false

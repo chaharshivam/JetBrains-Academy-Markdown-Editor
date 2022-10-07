@@ -3,6 +3,25 @@ from hstest import StageTest, TestedProgram, CheckResult, dynamic_test
 
 class Test(StageTest):
 
+    answers = [
+        '#### Hello World!\n',
+        'plain text**bold text**',
+        '*italic text*`code.work()`',
+        '[google](https://www.google.com)\n',
+        '1. first\n2. second\n3. third\n4. fourth\n'
+    ]
+
+    def check_result_in_file(self, attach):
+        try:
+            with open('output.md', 'r') as outfile:
+                output = outfile.read()
+                if output != self.answers[attach]:
+                    return CheckResult.wrong('The result written to the output file is wrong.')
+        except IOError:
+            return CheckResult.wrong('The output file is not found.')
+        return CheckResult.correct()
+
+
     @dynamic_test
     def test1(self):
         pr = TestedProgram()
@@ -33,7 +52,7 @@ class Test(StageTest):
         if not pr.is_finished():
             return CheckResult.wrong('Your program should finish its execution whenever !done is an input')
 
-        return CheckResult.correct()
+        return self.check_result_in_file(attach=0)
 
     @dynamic_test
     def test2(self):
@@ -72,7 +91,7 @@ class Test(StageTest):
         if not pr.is_finished():
             return CheckResult.wrong('Your program should finish its execution whenever !done is an input')
 
-        return CheckResult.correct()
+        return self.check_result_in_file(attach=1)
 
     @dynamic_test
     def test3(self):
@@ -108,7 +127,7 @@ class Test(StageTest):
         if not pr.is_finished():
             return CheckResult.wrong('Your program should finish its execution whenever !done is an input')
 
-        return CheckResult.correct()
+        return self.check_result_in_file(attach=2)
 
     @dynamic_test
     def test4(self):
@@ -147,7 +166,7 @@ class Test(StageTest):
         if not pr.is_finished():
             return CheckResult.wrong('Your program should finish its execution whenever !done is an input')
 
-        return CheckResult.correct()
+        return self.check_result_in_file(attach=3)
 
     @dynamic_test
     def test5(self):
@@ -180,44 +199,7 @@ class Test(StageTest):
         if not pr.is_finished():
             return CheckResult.wrong('Your program should finish its execution whenever !done is an input')
 
-        return CheckResult.correct()
-
-    @dynamic_test
-    def test6(self):
-        pr = TestedProgram()
-        pr.start()
-
-        output = pr.execute('unordered-list').strip().lower()
-        if 'number' not in output:
-            return CheckResult.wrong('Unordered list formatter should prompt a user for the number of rows, i.e "- Number of rows: > "')
-
-        output = list(map(lambda item: item.lower(), pr.execute('-7').split('\n')))
-        if len(output) < 2 or 'number' not in output[-1].strip():
-            return CheckResult.wrong('(Un)ordered list formatter should inform a user that the number of rows should be greater than zero if the input was invalid, and prompt the user for this input again, i.e "- Number of rows: > "')
-
-        pr.execute('4')
-        pr.execute('first')
-        pr.execute('second')
-        pr.execute('third')
-        output = list(map(lambda item: item.lower(), pr.execute('fourth').split('\n')))
-        if len(output) != 6:
-            return CheckResult.wrong('Unordered list formatter should switch to a new line automatically')
-
-        unordered_list_chars = ('* ', '+ ', '- ')
-        unordered_list_words = ['first', 'second', 'third', 'fourth']
-        for item, word in zip(output[0:3], unordered_list_words):
-            if not item.startswith(unordered_list_chars) and word not in item:
-                return CheckResult.wrong('Unordered list formatter should begin each of the '
-                                         'rows with the -, *, or + signs')
-
-        if 'formatter' not in output[5].strip():
-            return CheckResult.wrong('A user should be prompted for input again, i.e  "- Choose a formatter: > "')
-
-        pr.execute('!done')
-        if not pr.is_finished():
-            return CheckResult.wrong('Your program should finish its execution whenever !done is an input')
-
-        return CheckResult.correct()
+        return self.check_result_in_file(attach=4)
 
 
 if __name__ == '__main__':
