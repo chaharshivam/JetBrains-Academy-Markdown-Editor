@@ -18,6 +18,9 @@ def display_help():
 
 
 def done_exit():
+    file = open("output.md", "w", encoding="utf-8")
+    file.write(complete_text)
+    file.close()
     return True
 
 
